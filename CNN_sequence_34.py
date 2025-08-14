@@ -36,7 +36,27 @@ import models
 sys.modules['medicalnet'] = types.ModuleType('medicalnet')
 sys.modules['medicalnet.models'] = models
 from models import generate_model #if added to medicalnet, all version i found online didn't include it, if it doesn't add:
-# TODO: copy generate_model function from models in medicalnet!!!!!!!
+# in MedicalNet/models/resnet.py add:
+""""
+def generate_model(model_depth, **kwargs):
+    assert model_depth in [10, 18, 34, 50, 101, 152, 200]
+    if model_depth == 10:
+        model = resnet10(**kwargs)
+    elif model_depth == 18:
+        model = resnet18(**kwargs)
+    elif model_depth == 34:
+        model = resnet34(**kwargs)
+    elif model_depth == 50:
+        model = resnet50(**kwargs)
+    elif model_depth == 101:
+        model = resnet101(**kwargs)
+    elif model_depth == 152:
+        model = resnet152(**kwargs)
+    elif model_depth == 200:
+        model = resnet200(**kwargs)
+    return model
+"""
+# add __init__.py with: from .resnet import generate_model
 
 
 
