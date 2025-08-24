@@ -40,7 +40,7 @@ The workflow can be broadly split into three areas:
   Main preprocessing script for CNN inputs (resizing, normalization, cropping).
   
 - **`CNN_sequence_34.py`**  
-  Model training script for CNN sequence model using imaging data from 3–4 phases/timepoints.
+  Model training script for CNN sequence model using MedicalNet (Resnet34 backbone).
   
 - **`ct_check.py`**  
   Quick validation tool for CT datasets — checks file counts, folder structure, and slice consistency.
@@ -49,16 +49,19 @@ The workflow can be broadly split into three areas:
   Histogram/voxel intensity checker for ensuring correct HU (Hounsfield Unit) calibration.
   
 - **`inference.py`**  
-  Runs trained CNN models on unseen data, outputs predictions and optionally visualizations.
+  Gets segmentations for all scans based on Bereska et al. segmentation model. (see script for comments on how to use).
 
+- **`preprocess.py`**  
+  HU clipping and normalization for all CT scans, needed before running inference.py.
+  
 ---
 
 ### Imaging Utilities
 - **`nifty_mass_combiner.py`**  
-  Combines multiple NIfTI segmentations into a single file for batch evaluation.
+  Combines multiple NIfTI segmentations into a single file for batch evaluation, Bereska model has 2 output .nii.gz files, one for the organs, another for the vessels. If only one of the models is used, this file is not needed.
   
 - **`slicer_renamer.py`**  
-  Renames exported segmentation slices into a consistent naming convention for ingestion.
+  This script can be copied into Slicer3D to rename all segmentation slices according to Bereska plans.json files.
 
 ---
 
@@ -90,11 +93,6 @@ The workflow can be broadly split into three areas:
 - **`volume_calculator.py`**  
   Converts NIfTI segmentations into absolute tumor volumes (cm³).
 
----
-
-### Data Preprocessing & Checks
-- **`preprocess.py`**  
-  General-purpose preprocessing for tabular datasets (imputation, scaling, etc.).
 
 ---
 
